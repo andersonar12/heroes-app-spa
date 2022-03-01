@@ -20,7 +20,7 @@ export const SearchScreen = () => {
               placeholder="Find your hero"
               className="form-control"
             />
-            <button type="submit" onClick={() => handleSearch} className="btn btn-secondary">
+            <button type="submit" onClick={() => handleSearch} className="btn btn-secondary mt-3">
               Search
             </button>
           </form>

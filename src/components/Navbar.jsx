@@ -1,13 +1,20 @@
-/* import { Link } from "react-router-dom"; */
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../auth/AuthContext.jsx";
 const Navbar = ({ Link }) => {
   const navigate = useNavigate();
-
+  const { pathname } = useLocation();
+  const { user, dispatch } = useContext(AuthContext);
   const navLinks = [
     { name: "Marvel", link: "marvel" },
     { name: "DC", link: "dc" },
     { name: "Search Hero", link: "search" },
   ];
+
+  const logout = () => {
+    dispatch({ type: "logout" });
+    navigate("/", { state: pathname }); //guardamos en el state del router la ultima pagina visitada
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -36,7 +43,8 @@ const Navbar = ({ Link }) => {
             ))}
           </div>
 
-          <button className="btn btn-danger my-2 my-sm-0" onClick={() => navigate("/")}>
+          <p className="nav-link text-info mb-0">{user["name"]}</p>
+          <button className="btn btn-danger my-2 my-sm-0" onClick={() => logout()}>
             Salir
           </button>
         </div>
